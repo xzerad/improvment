@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:improvment/models/drawer_cubit.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -7,7 +9,23 @@ class CustomDrawer extends StatefulWidget {
   State<CustomDrawer> createState() => _CustomDrawerState();
 }
 
-class _CustomDrawerState extends State<CustomDrawer> {
+class _CustomDrawerState extends State<CustomDrawer> with SingleTickerProviderStateMixin{
+
+  late AnimationController _controller;
+  late Animation<double> slideAnimation;
+  @override
+  initState(){
+    super.initState();
+    _controller = AnimationController(vsync: this,
+        duration: const Duration(milliseconds: 600));
+    slideAnimation = Tween<double>(
+      begin: 250,
+      end: 0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,47 +35,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding:  EdgeInsets.only(top: 8.0, bottom: 10.0),
-                  child:  CircleAvatar(radius: 50,child: Text("RC"),),
-                ),
-                GestureDetector(
-                  onTap: (){
-                    setState((){
-                      menuOffset = 0;
-                    });
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: const Color(0xffb8c7ed))
-                    ),
-                    child: const Icon(Icons.arrow_back_ios_outlined, color: Color(0xffb8c7ed),),
-                  ),
-                )
-              ],
+            const Padding(
+              padding:  EdgeInsets.only(top: 8.0, bottom: 10.0),
+              child:  CircleAvatar(radius: 50,child: Text("RC"),),
             ),
             Text("Radwan \nChaieb", style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white, fontSize: 35),),
             Expanded(
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: const [
-                  ListTile(
-                    leading: Icon(Icons.bookmark_outline, color: Color(0xffb8c7ed),),
-                    title: Text("Templates", style: TextStyle(color: Colors.white),),
-                    minLeadingWidth: 5,
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.category_outlined, color: Color(0xffb8c7ed),),
-                    title: Text("Categories", style: TextStyle(color: Colors.white),),
-                    minLeadingWidth: 5,
-                  ),
                   ListTile(
                     leading: Icon(Icons.analytics_outlined, color: Color(0xffb8c7ed),),
                     title: Text("Analytics", style: TextStyle(color: Colors.white),),
@@ -74,6 +60,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ],
         ),
       ),
-    ),;
+    );
   }
 }
+

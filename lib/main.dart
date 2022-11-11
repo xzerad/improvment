@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:improvment/pages/splash_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:improvment/models/drawer_cubit.dart';
 import 'package:improvment/routes.dart';
 
 void main() {
@@ -11,13 +13,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Improvement',
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: routesBuilder(context),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (_)=> DrawerCubit(),
+      child: MaterialApp(
+        title: 'Improvement',
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: routesBuilder(context),
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.brown,
+              statusBarBrightness: Brightness.dark
+            )
+          )
+        ),
       ),
     );
   }
