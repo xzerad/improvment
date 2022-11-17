@@ -3,7 +3,7 @@
 a flutter app that help create routines and improve life style
 
 ## screens
-<div style="width:250">
+<div style="width:250px">
 -![Splash Screen](/dist/Screenshot_1668719976.png)
 </div>
 
