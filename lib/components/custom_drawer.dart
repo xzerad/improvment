@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:improvment/components/profile_picture.dart';
 import 'package:improvment/models/drawer_cubit.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -37,23 +38,42 @@ class _CustomDrawerState extends State<CustomDrawer> with SingleTickerProviderSt
           children: [
             const Padding(
               padding:  EdgeInsets.only(top: 8.0, bottom: 10.0),
-              child:  CircleAvatar(radius: 50,child: Text("RC"),),
+              child:  ProfilePicture(),
             ),
             Text("Radwan \nChaieb", style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white, fontSize: 35),),
             Expanded(
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
-                children: const [
+                children: [
                   ListTile(
+                    onTap: (){
+
+                      Navigator.of(context).pushNamed('/profile');
+
+                    },
+                    leading: const Icon(Icons.account_box_outlined, color: Color(0xffb8c7ed),),
+                    title: const Text("Profile", style: TextStyle(color: Colors.white),),
+                    minLeadingWidth: 5,
+                  ),
+                  const ListTile(
                     leading: Icon(Icons.analytics_outlined, color: Color(0xffb8c7ed),),
                     title: Text("Analytics", style: TextStyle(color: Colors.white),),
                     minLeadingWidth: 5,
                   ),
-                  ListTile(
+                  const ListTile(
                     leading: Icon(Icons.settings_outlined, color: Color(0xffb8c7ed),),
                     title: Text("Settings", style: TextStyle(color: Colors.white),),
                     minLeadingWidth: 5,
-                  )
+                  ),
+                   ListTile(
+                     onTap: (){
+                       Navigator.of(context).pushReplacementNamed('/');
+                     },
+                    leading: const Icon(Icons.logout, color: Color(0xffb8c7ed),),
+                    title: const Text("LogOut", style: TextStyle(color: Colors.white),),
+                    minLeadingWidth: 5,
+                  ),
+
                 ],
               ),
             )

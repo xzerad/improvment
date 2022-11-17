@@ -1,17 +1,17 @@
+import 'package:flutter/animation.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-
 part 'drawer_state.dart';
 
 class DrawerCubit extends Cubit<DrawerState> {
-  DrawerCubit() : super( DrawerClosed());
+  DrawerCubit() : super( const DrawerClosed());
 
   Future<void> closeDrawer() async {
-    emit( DrawerClosed());
+    emit( const DrawerClosed());
   }
 
   Future<void> openDrawer() async {
-    emit( DrawerOpened());
+    emit( const DrawerOpened());
   }
 
   Future<void> openDrawerBy(double width) async{

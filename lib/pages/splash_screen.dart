@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:improvment/constants.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
   double bottom = -25;
   double scale = 0;
+  bool gestureAnimationCompleted = false;
   @override
   Widget build(BuildContext context) {
       Size size = MediaQuery.of(context).size;
@@ -57,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                       alignment: const Alignment(0.03, 0),
                       widthFactor: 0.35 + scale,
                       heightFactor: 1 + scale*2.5,
-                      child: Image.asset("assets/images/boat.jpeg",),
+                      child: Image.asset("assets/images/stars.jpg",),
                     ),
                   ),
                 ),
@@ -66,8 +68,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 top: size.height*.15,
                 child: SizedBox(
                   width: size.width,
-                  child: const Text("Improvement is a journey through unfamiliar failures",
-                    textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 32),),
+                  child: const Padding(
+                    padding:  EdgeInsets.all(15.0),
+                    child:  Text("Improvement is a journey through unfamiliar failures",
+                      textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30, fontFamily: 'HennyPenny'),),
+                  ),
                 ),
               ),
               Positioned(
@@ -108,7 +113,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
                                 });
                               }else if(bottom <= -90) {
-                                  Navigator.of(context).pushReplacementNamed('/home');
+                                setState((){
+                                  gestureAnimationCompleted = true;
+                                });
+                                  Navigator.of(context).pushReplacementNamed('/login');
                               }
 
                             }else{
@@ -121,14 +129,16 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                             }
                           },
                           onVerticalDragEnd: (v){
-                            setState((){
-                              bottom = -25;
-                              scale = 0;
-                            });
+                            if(!gestureAnimationCompleted){
+                              setState((){
+                                bottom = -25;
+                                scale = 0;
+                              });
+                            }
 
                           },
 
-                          child: const CircleAvatar(radius: 25, backgroundColor: Colors.blue,child: Text("Go", style: TextStyle(fontWeight: FontWeight.bold),),)
+                          child: const CircleAvatar(radius: 25, backgroundColor: Colors.white, foregroundColor: kFitnessDarkColor,child: Text("Go", style: TextStyle(fontWeight: FontWeight.bold),),)
                       )
                   );
                 }
